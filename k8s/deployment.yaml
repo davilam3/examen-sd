@@ -1,45 +1,58 @@
 apiVersion: apps/v1
 kind: Deployment
+
 metadata:
-  name: cicd-practica-sd
+  name: sd-cicd-u5
   labels:
-    app: cicd-practica-sd
+    app: sd-cicd-u5
+
 spec:
   replicas: 4
+
   strategy:
     type: RollingUpdate
     rollingUpdate:
       maxUnavailable: 1
       maxSurge: 1
+
   selector:
     matchLabels:
-      app: cicd-practica-sd
+      app: sd-cicd-u5
+
   template:
     metadata:
       labels:
-        app: cicd-practica-sd
+        app: sd-cicd-u5
+
     spec:
       containers:
         - name: app
-          image: ghcr.io/ctimbi/cicd-practica-sd:latest
+          image: ghcr.io/davilam3/sd-cicd-u5:latest
+          imagePullPolicy: Always
+
           ports:
             - containerPort: 3000
+
           env:
             - name: PORT
               value: "3000"
+
           readinessProbe:
             httpGet:
               path: /health
               port: 3000
-            initialDelaySeconds: 2
+            initialDelaySeconds: 5
             periodSeconds: 3
             failureThreshold: 3
+
           livenessProbe:
             httpGet:
               path: /health
               port: 3000
-            initialDelaySeconds: 5
+            initialDelaySeconds: 10
             periodSeconds: 10
+            failureThreshold: 3
+
           resources:
             requests:
               cpu: "50m"
@@ -47,3 +60,56 @@ spec:
             limits:
               cpu: "200m"
               memory: "128Mi"
+
+              
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: sd-cicd-u5
+#   labels:
+#     app: sd-cicd-u5
+# spec:
+#   replicas: 4
+#   strategy:
+#     type: RollingUpdate
+#     rollingUpdate:
+#       maxUnavailable: 1
+#       maxSurge: 1
+#   selector:
+#     matchLabels:
+#       app: sd-cicd-u5
+#   template:
+#     metadata:
+#       labels:
+#         app: sd-cicd-u5
+#     spec:
+#       containers:
+#         - name: app
+#           image: ghcr.io/davilam3/sd-cicd-u5:latest
+#           imagePullPolicy: Always
+#           ports:
+#             - containerPort: 3000
+#           env:
+#             - name: PORT
+#               value: "3000"
+#           readinessProbe:
+#             httpGet:
+#               path: /health
+#               port: 3000
+#             initialDelaySeconds: 5
+#             periodSeconds: 3
+#             failureThreshold: 3
+#           livenessProbe:
+#             httpGet:
+#               path: /health
+#               port: 3000
+#             initialDelaySeconds: 10
+#             periodSeconds: 10
+#             failureThreshold: 3
+#           resources:
+#             requests:
+#               cpu: "50m"
+#               memory: "64Mi"
+#             limits:
+#               cpu: "200m"
+#               memory: "128Mi"
