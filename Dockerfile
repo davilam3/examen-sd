@@ -2,7 +2,7 @@
 FROM node:20-alpine AS build
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci
+RUN npm install
 COPY . .
 RUN npm test
 
@@ -12,10 +12,16 @@ WORKDIR /app
 ARG APP_VERSION=v1
 ARG APP_COLOR=green
 ARG SIMULATE_FAILURE=false
+
 ENV NODE_ENV=production
 ENV APP_VERSION=$APP_VERSION
 ENV APP_COLOR=$APP_COLOR
 ENV SIMULATE_FAILURE=$SIMULATE_FAILURE
+
+# Defecto intencional:
+# La aplicación escuchará en 8080,
+# pero se publicará el puerto 3000.
+ENV PORT=3000
 COPY package*.json ./
 RUN npm ci --omit=dev
 COPY --from=build /app/server.js ./server.js
