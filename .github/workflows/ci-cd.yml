@@ -26,7 +26,6 @@ jobs:
 
   build-push:
   # elimina temportalmente el needs 
-    # needs: build-test
     runs-on: ubuntu-latest
     permissions:
       contents: read
