@@ -7,8 +7,9 @@ metadata:
 spec:
   type: NodePort
 
+# El error intencional está aquí
   selector:
-    app: sd-cicd-u5
+    app: webapp
 
   ports:
     - port: 80
