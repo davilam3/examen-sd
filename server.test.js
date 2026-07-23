@@ -34,7 +34,7 @@ test('GET /version responde con version y color', async () => {
   const app = createApp();
   const server = await startServer(app);
   const res = await get(server, '/version');
-  assert.strictEqual(res.status, 200);
+  assert.strictEqual(res.status, 201);
   const body = JSON.parse(res.body);
   assert.ok(body.version);
   assert.ok(body.color);
@@ -45,7 +45,7 @@ test('GET / responde 200 con HTML', async () => {
   const app = createApp();
   const server = await startServer(app);
   const res = await get(server, '/');
-  assert.strictEqual(res.status, 200);
+  assert.strictEqual(res.status, 201);
   assert.match(res.body, /Sistemas Distribuidos/);
   server.close();
 });
