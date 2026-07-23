@@ -41,7 +41,8 @@ test('GET /health responde 200 y status ok', async () => {
 
     // Error intencional para el reto 3:
     // la aplicación responde 200, pero la prueba espera 201.
-    assert.strictEqual(res.status, 201);
+    // al final de la práctica, corregir la prueba para que espere 200.
+    assert.strictEqual(res.status, 200);
     assert.strictEqual(JSON.parse(res.body).status, 'ok');
   } finally {
     server.close();
