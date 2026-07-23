@@ -25,7 +25,8 @@ jobs:
         run: npm test
 
   build-push:
-  # elimina temportalmente el needs 
+  #agg de nuevo el needs.
+    needs: build-test 
     runs-on: ubuntu-latest
     permissions:
       contents: read
