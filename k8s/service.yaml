@@ -7,9 +7,10 @@ metadata:
 spec:
   type: NodePort
 
-# El error intencional está aquí
+# El error intencional está aquí = webapp
+# corregir al pod real = sd-cicd-u5
   selector:
-    app: webapp
+    app: sd-cicd-u5
 
   ports:
     - port: 80
